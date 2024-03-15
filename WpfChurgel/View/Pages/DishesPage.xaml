@@ -1,0 +1,33 @@
+﻿<Page x:Class="WpfChurgel.View.Pages.DishesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfChurgel.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="390" d:DesignWidth="780"
+      Title="DishesPage">
+
+    <Grid>
+   
+        <ListBox x:Name="DishesListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"
+                 ItemsSource="{Binding Dishes}" DisplayMemberPath="Name"
+                 SelectionChanged="DishesListBox_SelectionChanged"/>
+
+        
+        <DataGrid x:Name="DishProductsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,10,0,0"
+                  AutoGenerateColumns="False" Height="300" Width="500"
+                  ItemsSource="{Binding SelectedDish.Products}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category.Name}" />
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" />
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="TotalCostTextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="424,329,0,0"
+           Width="92" Height="51" Text="{Binding TotalPrice, StringFormat='Total Price: {0:F}'}" />
+
+
+    </Grid>
+</Page>

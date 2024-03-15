@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="706182c3e4974765bfafb2d455f9f4a4" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.Category" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.Dishes" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.DishOrderRelation" Width="1.5" PointX="5.25" PointY="3.875" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.Menu" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.Orders" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.ProductDishRelation" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.Products" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.125" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.TypeDishes" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.UnitId" Width="1.5" PointX="0.75" PointY="9.5" />
+        <EntityTypeShape EntityType="FoodDispatcherDBModel.Users" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK_Products_Category" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK__DishOrder__DishI__46E78A0C" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK_Dishes_TypeDishes" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK_ProductDishRelation_Dishes" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK__DishOrder__Order__47DBAE45" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK_Orders_Users" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK_ProductDishRelation_Products" />
+        <AssociationConnector Association="FoodDispatcherDBModel.FK_Products_UnitId" />
+        <AssociationConnector Association="FoodDispatcherDBModel.DishMenuRelation" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,36 @@
+﻿<Page x:Class="WpfChurgel.View.Pages.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfChurgel.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="390" d:DesignWidth="780"
+      Title="MenuPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+    
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Дата меню:" Margin="0,0,10,0"/>
+            <DatePicker x:Name="MenuDatePicker" SelectedDateChanged="MenuDatePicker_SelectedDateChanged"  Margin="0,0,10,0"/>
+        </StackPanel>
+
+      
+        <ListBox ItemsSource="{Binding MenuDishes}" Margin="10" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Price, StringFormat={}{0:C}}" FontWeight="Bold"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

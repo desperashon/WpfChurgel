@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище FoodDispatcherDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="IdCategory" />
+          </Key>
+          <Property Name="IdCategory" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Dishes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IdTypeDishes" Type="int" />
+        </EntityType>
+        <EntityType Name="DishMenuRelation">
+          <Key>
+            <PropertyRef Name="DishID" />
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="DishID" Type="int" Nullable="false" />
+          <Property Name="MenuID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DishOrderRelation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="DishID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="Portions" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerContact" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductDishRelation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="ProductID" Type="int" />
+          <Property Name="DishID" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="UnitId" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Protein" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fat" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Acne" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypeDishes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UnitId">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__DishMenuR__DishI__412EB0B6">
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="1" />
+          <End Role="DishMenuRelation" Type="Self.DishMenuRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishMenuRelation">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DishMenuR__MenuI__4222D4EF">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="DishMenuRelation" Type="Self.DishMenuRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishMenuRelation">
+              <PropertyRef Name="MenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DishOrder__DishI__46E78A0C">
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="1" />
+          <End Role="DishOrderRelation" Type="Self.DishOrderRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishOrderRelation">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DishOrder__Order__47DBAE45">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="DishOrderRelation" Type="Self.DishOrderRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishOrderRelation">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_TypeDishes">
+          <End Role="TypeDishes" Type="Self.TypeDishes" Multiplicity="0..1" />
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeDishes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="IdTypeDishes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDishRelation_Dishes">
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="0..1" />
+          <End Role="ProductDishRelation" Type="Self.ProductDishRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDishRelation">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDishRelation_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductDishRelation" Type="Self.ProductDishRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDishRelation">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IdCategory" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_UnitId">
+          <End Role="UnitId" Type="Self.UnitId" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitId">
+              <PropertyRef Name="UnitId" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище FoodDispatcherDBModelContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dishes" EntityType="Self.Dishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishMenuRelation" EntityType="Self.DishMenuRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishOrderRelation" EntityType="Self.DishOrderRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDishRelation" EntityType="Self.ProductDishRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeDishes" EntityType="Self.TypeDishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitId" EntityType="Self.UnitId" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DishMenuR__DishI__412EB0B6" Association="Self.FK__DishMenuR__DishI__412EB0B6">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="DishMenuRelation" EntitySet="DishMenuRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DishMenuR__MenuI__4222D4EF" Association="Self.FK__DishMenuR__MenuI__4222D4EF">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="DishMenuRelation" EntitySet="DishMenuRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DishOrder__DishI__46E78A0C" Association="Self.FK__DishOrder__DishI__46E78A0C">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="DishOrderRelation" EntitySet="DishOrderRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DishOrder__Order__47DBAE45" Association="Self.FK__DishOrder__Order__47DBAE45">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="DishOrderRelation" EntitySet="DishOrderRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_TypeDishes" Association="Self.FK_Dishes_TypeDishes">
+            <End Role="TypeDishes" EntitySet="TypeDishes" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDishRelation_Dishes" Association="Self.FK_ProductDishRelation_Dishes">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="ProductDishRelation" EntitySet="ProductDishRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDishRelation_Products" Association="Self.FK_ProductDishRelation_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductDishRelation" EntitySet="ProductDishRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_UnitId" Association="Self.FK_Products_UnitId">
+            <End Role="UnitId" EntitySet="UnitId" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FoodDispatcherDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FoodDispatcherDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="FoodDispatcherDBModel.Category" />
+          <EntitySet Name="Dishes" EntityType="FoodDispatcherDBModel.Dishes" />
+          <EntitySet Name="DishOrderRelation" EntityType="FoodDispatcherDBModel.DishOrderRelation" />
+          <EntitySet Name="Menu" EntityType="FoodDispatcherDBModel.Menu" />
+          <EntitySet Name="Orders" EntityType="FoodDispatcherDBModel.Orders" />
+          <EntitySet Name="ProductDishRelation" EntityType="FoodDispatcherDBModel.ProductDishRelation" />
+          <EntitySet Name="Products" EntityType="FoodDispatcherDBModel.Products" />
+          <EntitySet Name="sysdiagrams" EntityType="FoodDispatcherDBModel.sysdiagrams" />
+          <EntitySet Name="TypeDishes" EntityType="FoodDispatcherDBModel.TypeDishes" />
+          <EntitySet Name="UnitId" EntityType="FoodDispatcherDBModel.UnitId" />
+          <EntitySet Name="Users" EntityType="FoodDispatcherDBModel.Users" />
+          <AssociationSet Name="FK_Products_Category" Association="FoodDispatcherDBModel.FK_Products_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DishOrder__DishI__46E78A0C" Association="FoodDispatcherDBModel.FK__DishOrder__DishI__46E78A0C">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="DishOrderRelation" EntitySet="DishOrderRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_TypeDishes" Association="FoodDispatcherDBModel.FK_Dishes_TypeDishes">
+            <End Role="TypeDishes" EntitySet="TypeDishes" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDishRelation_Dishes" Association="FoodDispatcherDBModel.FK_ProductDishRelation_Dishes">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="ProductDishRelation" EntitySet="ProductDishRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DishOrder__Order__47DBAE45" Association="FoodDispatcherDBModel.FK__DishOrder__Order__47DBAE45">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="DishOrderRelation" EntitySet="DishOrderRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="FoodDispatcherDBModel.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDishRelation_Products" Association="FoodDispatcherDBModel.FK_ProductDishRelation_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductDishRelation" EntitySet="ProductDishRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_UnitId" Association="FoodDispatcherDBModel.FK_Products_UnitId">
+            <End Role="UnitId" EntitySet="UnitId" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="DishMenuRelation" Association="FoodDispatcherDBModel.DishMenuRelation">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="IdCategory" />
+          </Key>
+          <Property Name="IdCategory" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="FoodDispatcherDBModel.FK_Products_Category" FromRole="Category" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Dishes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdTypeDishes" Type="Int32" />
+          <NavigationProperty Name="DishOrderRelation" Relationship="FoodDispatcherDBModel.FK__DishOrder__DishI__46E78A0C" FromRole="Dishes" ToRole="DishOrderRelation" />
+          <NavigationProperty Name="TypeDishes" Relationship="FoodDispatcherDBModel.FK_Dishes_TypeDishes" FromRole="Dishes" ToRole="TypeDishes" />
+          <NavigationProperty Name="ProductDishRelation" Relationship="FoodDispatcherDBModel.FK_ProductDishRelation_Dishes" FromRole="Dishes" ToRole="ProductDishRelation" />
+          <NavigationProperty Name="Menu" Relationship="FoodDispatcherDBModel.DishMenuRelation" FromRole="Dishes" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="DishOrderRelation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="DishID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Portions" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Dishes" Relationship="FoodDispatcherDBModel.FK__DishOrder__DishI__46E78A0C" FromRole="DishOrderRelation" ToRole="Dishes" />
+          <NavigationProperty Name="Orders" Relationship="FoodDispatcherDBModel.FK__DishOrder__Order__47DBAE45" FromRole="DishOrderRelation" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Dishes" Relationship="FoodDispatcherDBModel.DishMenuRelation" FromRole="Menu" ToRole="Dishes" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContact" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="DishOrderRelation" Relationship="FoodDispatcherDBModel.FK__DishOrder__Order__47DBAE45" FromRole="Orders" ToRole="DishOrderRelation" />
+          <NavigationProperty Name="Users" Relationship="FoodDispatcherDBModel.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ProductDishRelation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="DishID" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Dishes" Relationship="FoodDispatcherDBModel.FK_ProductDishRelation_Dishes" FromRole="ProductDishRelation" ToRole="Dishes" />
+          <NavigationProperty Name="Products" Relationship="FoodDispatcherDBModel.FK_ProductDishRelation_Products" FromRole="ProductDishRelation" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Protein" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fat" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Acne" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Category" Relationship="FoodDispatcherDBModel.FK_Products_Category" FromRole="Products" ToRole="Category" />
+          <NavigationProperty Name="ProductDishRelation" Relationship="FoodDispatcherDBModel.FK_ProductDishRelation_Products" FromRole="Products" ToRole="ProductDishRelation" />
+          <NavigationProperty Name="UnitId1" Relationship="FoodDispatcherDBModel.FK_Products_UnitId" FromRole="Products" ToRole="UnitId" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypeDishes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dishes" Relationship="FoodDispatcherDBModel.FK_Dishes_TypeDishes" FromRole="TypeDishes" ToRole="Dishes" />
+        </EntityType>
+        <EntityType Name="UnitId">
+          <Key>
+            <PropertyRef Name="UnitId1" />
+          </Key>
+          <Property Name="UnitId1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="FoodDispatcherDBModel.FK_Products_UnitId" FromRole="UnitId" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="FoodDispatcherDBModel.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK_Products_Category">
+          <End Type="FoodDispatcherDBModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="FoodDispatcherDBModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IdCategory" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DishOrder__DishI__46E78A0C">
+          <End Type="FoodDispatcherDBModel.Dishes" Role="Dishes" Multiplicity="1" />
+          <End Type="FoodDispatcherDBModel.DishOrderRelation" Role="DishOrderRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishOrderRelation">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_TypeDishes">
+          <End Type="FoodDispatcherDBModel.TypeDishes" Role="TypeDishes" Multiplicity="0..1" />
+          <End Type="FoodDispatcherDBModel.Dishes" Role="Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeDishes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="IdTypeDishes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDishRelation_Dishes">
+          <End Type="FoodDispatcherDBModel.Dishes" Role="Dishes" Multiplicity="0..1" />
+          <End Type="FoodDispatcherDBModel.ProductDishRelation" Role="ProductDishRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDishRelation">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DishOrder__Order__47DBAE45">
+          <End Type="FoodDispatcherDBModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="FoodDispatcherDBModel.DishOrderRelation" Role="DishOrderRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishOrderRelation">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Type="FoodDispatcherDBModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="FoodDispatcherDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDishRelation_Products">
+          <End Type="FoodDispatcherDBModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="FoodDispatcherDBModel.ProductDishRelation" Role="ProductDishRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDishRelation">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_UnitId">
+          <End Type="FoodDispatcherDBModel.UnitId" Role="UnitId" Multiplicity="0..1" />
+          <End Type="FoodDispatcherDBModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitId">
+              <PropertyRef Name="UnitId1" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DishMenuRelation">
+          <End Type="FoodDispatcherDBModel.Dishes" Role="Dishes" Multiplicity="*" />
+          <End Type="FoodDispatcherDBModel.Menu" Role="Menu" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FoodDispatcherDBModelContainer" CdmEntityContainer="FoodDispatcherDBEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dishes">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.Dishes">
+              <MappingFragment StoreEntitySet="Dishes">
+                <ScalarProperty Name="IdTypeDishes" ColumnName="IdTypeDishes" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DishOrderRelation">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.DishOrderRelation">
+              <MappingFragment StoreEntitySet="DishOrderRelation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Portions" ColumnName="Portions" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DishID" ColumnName="DishID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CustomerContact" ColumnName="CustomerContact" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDishRelation">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.ProductDishRelation">
+              <MappingFragment StoreEntitySet="ProductDishRelation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="DishID" ColumnName="DishID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Acne" ColumnName="Acne" />
+                <ScalarProperty Name="Fat" ColumnName="Fat" />
+                <ScalarProperty Name="Protein" ColumnName="Protein" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeDishes">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.TypeDishes">
+              <MappingFragment StoreEntitySet="TypeDishes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitId">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.UnitId">
+              <MappingFragment StoreEntitySet="UnitId">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UnitId1" ColumnName="UnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FoodDispatcherDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DishMenuRelation" TypeName="FoodDispatcherDBModel.DishMenuRelation" StoreEntitySet="DishMenuRelation">
+            <EndProperty Name="Menu">
+              <ScalarProperty Name="ID" ColumnName="MenuID" />
+            </EndProperty>
+            <EndProperty Name="Dishes">
+              <ScalarProperty Name="ID" ColumnName="DishID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
