@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WpfChurgel"
              StartupUri="\View\Windows\AuthorizationWindow.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>

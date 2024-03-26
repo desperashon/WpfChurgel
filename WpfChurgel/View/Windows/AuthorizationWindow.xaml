@@ -29,35 +29,65 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="ВОЙТИ"
-                   FontSize="50" Height="70" Grid.RowSpan="2" Grid.Row="2"
+        <TextBlock Text="Добро пожаловать в частную школу!"
+                   FontSize="20" Height="50" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
                    />
 
-        <StackPanel Grid.Row="4">
-            <TextBlock Text="Введите Email:"/>
-            <TextBox x:Name="LoginTb"/>
+        <Image Source="C:\Users\danek\source\repos\WpfChurgel\WpfChurgel\Resources\Icons\free-icon-book-828370.png" Height="100" Width="100" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <TextBlock Text="ВОЙТИ"
+                   FontSize="50" Height="70" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
+                   />
+
+        <StackPanel Grid.Row="5">
+            <TextBlock Width="100" Text="Введите Email:"/>
+            <TextBox  x:Name="LoginTb"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="6">
-            <TextBlock Text="Введите пароль:"/>
+        <StackPanel Grid.Row="7">
+            <TextBlock Width="100" Text="Введите пароль:"/>
             <PasswordBox x:Name="PasswordPb"/>
         </StackPanel>
 
         <Button Content="Войти"
-                Grid.Row="8"
+                Grid.Row="10"
                 Name="AuthorizationBtn"
-                Click="AuthorizationBtn_Click"/>
+                Click="AuthorizationBtn_Click" Margin="310,0,310,0">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#773DFF"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="30"
+                           CornerRadius="15"
+                           Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#836EFB"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

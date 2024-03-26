@@ -208,7 +208,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppData\" />
-    <Folder Include="Resources\Icons\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +221,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icons\free-icon-book-828370.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

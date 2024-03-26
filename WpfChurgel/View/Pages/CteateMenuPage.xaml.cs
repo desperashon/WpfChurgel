@@ -11,13 +11,11 @@ namespace WpfChurgel.View.Pages
         public CteateMenuPage()
         {
             InitializeComponent();
-          
 
-            
             MenuDatePicker.SelectedDate = DateTime.Today;
 
-            
-            DishesListBox.ItemsSource = App.context.Dishes.ToList();
+
+            DishesDataGrid.ItemsSource = App.context.Dishes.ToList();
             LoadMenuTypes();
         }
 
@@ -48,14 +46,14 @@ namespace WpfChurgel.View.Pages
             {
                 if (selectedMenuType.id == 0)
                 {
-                    
-                    DishesListBox.ItemsSource = App.context.Dishes.ToList();
+
+                    DishesDataGrid.ItemsSource = App.context.Dishes.ToList();
                 }
                 else
                 {
                     
                     var filteredDishes = App.context.Dishes.Where(d => d.IdTypeDishes == selectedMenuType.id).ToList();
-                    DishesListBox.ItemsSource = filteredDishes;
+                    DishesDataGrid.ItemsSource = filteredDishes;
                 }
             }
         }
@@ -65,7 +63,7 @@ namespace WpfChurgel.View.Pages
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             
-            var selectedDish = (DishesListBox.SelectedItem as Dishes);
+            var selectedDish = (DishesDataGrid.SelectedItem as Dishes);
 
             if (selectedDish != null)
             {

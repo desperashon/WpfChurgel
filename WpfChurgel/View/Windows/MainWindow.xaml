@@ -14,16 +14,16 @@
         </Grid.RowDefinitions>
 
 
-            <Menu Grid.Row="0" >
-                <MenuItem Header="_Create Menu" Click="CreateMenu_Click"/>
-                <MenuItem Header="_Menu" Click="MenuItem_Click"/>
-                <MenuItem Header="_Dishes" Click="MenuItem_Click_1"/>
-                <MenuItem Header="_Product" Click="MenuItem_Click_3"/>
-                <MenuItem Header="_Order" Click="MenuItem_Click_2"/>
-            </Menu>
+        <Menu Grid.Row="0" >
+            <MenuItem Header="_Create Menu" Click="CreateMenu_Click"/>
+            <MenuItem Header="_Menu" Click="MenuItem_Click"/>
+            <MenuItem Header="_Dishes" Click="MenuItem_Click_1"/>
+            <MenuItem Header="_Product" Click="MenuItem_Click_3"/>
+            <MenuItem Header="_Order" Click="MenuItem_Click_2"/>
+        </Menu>
 
         <Frame Margin="10,10,10,-400" Grid.Row="1" NavigationUIVisibility="Hidden" x:Name="NavigationFrame" />
 
-     
+
     </Grid>
 </Window>

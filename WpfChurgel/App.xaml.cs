@@ -15,5 +15,6 @@ namespace WpfChurgel
     public partial class App : Application
     {
         public static FoodDispatcherDBEntities context = new FoodDispatcherDBEntities();
+        public static Products selectedPosition;
     }
 }

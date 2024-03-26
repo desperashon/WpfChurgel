@@ -11,6 +11,8 @@ namespace WpfChurgel.View.Pages
 {
     public partial class OrderPage : Page, INotifyPropertyChanged
     {
+        private decimal totalCost;
+        List<Category> categories = new List<Category>();
         private DateTime _selectedMenuDate;
         public DateTime SelectedMenuDate
         {
@@ -38,7 +40,7 @@ namespace WpfChurgel.View.Pages
                 }
             }
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -87,59 +89,53 @@ namespace WpfChurgel.View.Pages
             }
         }
 
-        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        private void CreateCheque_Click(object sender, RoutedEventArgs e)
         {
-            if (AvailableProducts.Count == 0)
-            {
-                MessageBox.Show("Нет доступных продуктов для заказа.");
-                return;
-            }
-
-
+           
             if (IsOrderExistsForSelectedDate())
             {
                 MessageBox.Show("На выбранную дату уже создан заказ.");
                 return;
             }
 
-           
+          
             Orders newOrder = new Orders
             {
-                OrderDate = DateTime.Now, 
-                UserId = 1,            
+                OrderDate = DateTime.Now,
+                UserId = 1,
             };
 
-            
             App.context.Orders.Add(newOrder);
 
             try
             {
-                
-                foreach (var product in AvailableProducts)
-                {  
-                    int dishId = product.ProductDishRelation.FirstOrDefault()?.DishID ?? 0;
-
-                   
-                    DishOrderRelation relation = new DishOrderRelation
+        
+                foreach (var product in PositionsLv.Items)
+                {
+                    Products selectedProduct = product as Products;
+                    if (selectedProduct != null)
                     {
-                        DishID = dishId, 
-                        OrderID = newOrder.ID, 
-                        Portions = 1 
-                    };
+                        int dishId = selectedProduct.ProductDishRelation.FirstOrDefault()?.DishID ?? 0;
 
-               
-                    App.context.DishOrderRelation.Add(relation);
+                        DishOrderRelation relation = new DishOrderRelation
+                        {
+                            DishID = dishId,
+                            OrderID = newOrder.ID,
+                            Portions = 1
+                        };
+
+                        App.context.DishOrderRelation.Add(relation);
+                    }
                 }
 
                 
                 App.context.SaveChanges();
 
-                
-                AvailableProducts.Clear();
+               
+                PositionsLv.Items.Clear();
 
                 MessageBox.Show("Заказ успешно создан.");
 
-              
                 LoadAvailableProducts(SelectedMenuDate);
             }
             catch (DbUpdateException ex)
@@ -149,15 +145,70 @@ namespace WpfChurgel.View.Pages
         }
 
         private bool IsOrderExistsForSelectedDate()
-{
-   
-    return App.context.Orders.Any(o => o.OrderDate == SelectedMenuDate.Date);
-}
+        {
+            return App.context.Orders.Any(o => o.OrderDate == SelectedMenuDate.Date);
+        }
 
+        private void CategoryCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CategoryCmb.SelectedIndex != 0)
+            {
+                PositionLsb.ItemsSource = App.context.Products.Where(p => p.Category.IdCategory == CategoryCmb.SelectedIndex).ToList();
+            }
+            else
+            {
+                PositionLsb.ItemsSource = App.context.Products.ToList();
+            }
+        }
 
+        private void PositionLsb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App.selectedPosition = PositionLsb.SelectedItem as Products;
 
+            if (App.selectedPosition != null)
+            {
+                PositionsLv.Items.Add(App.selectedPosition);
 
+                TotalCostTbl.Text = GetTotalCost();
+            }
 
+            
+            PositionLsb.SelectedIndex = -1;
+        }
+
+        private string GetTotalCost()
+        {
+            totalCost = 0;
+            foreach (Products position in PositionsLv.Items)
+            {
+                totalCost += position.Price ?? 0; 
+            }
+            return $"К оплате: {totalCost}₽";
+        }
+
+        private void PositionsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PositionsLv.Items.Remove(PositionsLv.SelectedItem);
+
+            TotalCostTbl.Text = GetTotalCost();
+        }
+
+        private void Page_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            
+            DateTbl.Text = "" + DateTime.Now.ToString();
+
+            
+            PositionLsb.ItemsSource = App.context.Products.ToList();
+
+            
+            categories = App.context.Category.ToList();
+            categories.Insert(0, new Category() { Name = "Все категории" });
+            CategoryCmb.ItemsSource = categories;
+
+           
+            CategoryCmb.SelectedIndex = 0;
+        }
 
     }
 }

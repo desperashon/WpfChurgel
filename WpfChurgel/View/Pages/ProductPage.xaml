@@ -18,29 +18,78 @@
             <TextBlock Text="Сортировать по категории:" VerticalAlignment="Center" Margin="0,0,5,0"/>
             <ComboBox SelectionChanged="CategoryComboBox_SelectionChanged"  x:Name="CategoryComboBox" Width="150" VerticalAlignment="Center" 
                       ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" />
-            <Button Content="Добавить продукт" Margin="340 0 0 0" Name="AddProductBtn" Click="AddProductButton_Click"/>
+            <Button Grid.Column="1"
+                  Command="{Binding LoginCommand}"                            
+               Content="Добавить продукт"                           
+                  FontSize="12"
+                  FontFamily="Montserrat"
+                  Cursor="Hand"
+                  BorderThickness="0"
+                  Foreground="White"
+          VerticalAlignment="Top"
+          Name="AddProductBtn" Click="AddProductButton_Click" Margin="300 0 0 0" Width="104">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#773DFF"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Height="30"
+                                          CornerRadius="15"
+                                          Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#836EFB"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
 
 
-        <DataGrid x:Name="ProductDataGrid" Grid.Row="1" AutoGenerateColumns="False" Margin="10"
-          ItemsSource="{Binding Products}" SelectionMode="Single" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name}" />
-                <DataGridTextColumn Width="*" Header="Категория" Binding="{Binding Category.Name}" />
-                <DataGridTextColumn Width="*" Header="Единицы измерения" Binding="{Binding UnitId1.Name}" />
-                <DataGridTextColumn Width="*" Header="Белки" Binding="{Binding Protein}" />
-                <DataGridTextColumn Width="*" Header="Жиры" Binding="{Binding Fat}" />
-                <DataGridTextColumn Width="*" Header="Углеводы" Binding="{Binding Acne}" />
-                <DataGridTextColumn Width="*" Header="Цена" Binding="{Binding Price}" />
-                <DataGridTemplateColumn Width="Auto">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Удалить" Click="DeleteProductButton_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border Grid.Row="1"
+          Background="White"
+          CornerRadius="10" 
+          Padding="10">
+            <DataGrid ColumnWidth="*"
+            Background="White"
+            BorderThickness="0"
+                 x:Name="ProductDataGrid"  AutoGenerateColumns="False" Margin="15,10,15,10"
+            ItemsSource="{Binding Products}" SelectionMode="Single" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Padding" Value="10,0,0,10"/>
+                        <Setter Property="FontFamily" Value="Montserrat"/>
+                        <Setter Property="FontSize" Value="15"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name}" />
+                    <DataGridTextColumn Width="*" Header="Категория" Binding="{Binding Category.Name}" />
+                    <DataGridTextColumn Width="*" Header="Мера" Binding="{Binding UnitId1.Name}" />
+                    <DataGridTextColumn Width="*" Header="Белки" Binding="{Binding Protein}" />
+                    <DataGridTextColumn Width="*" Header="Жиры" Binding="{Binding Fat}" />
+                    <DataGridTextColumn Width="*" Header="Углеводы" Binding="{Binding Acne}" />
+                    <DataGridTextColumn Width="*" Header="Цена" Binding="{Binding Price}" />
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить" Click="DeleteProductButton_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
 
     </Grid>
 </Page>

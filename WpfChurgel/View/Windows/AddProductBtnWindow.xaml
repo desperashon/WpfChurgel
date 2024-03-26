@@ -65,7 +65,9 @@
         </StackPanel>
 
         <StackPanel   Grid.Row="7" Orientation="Horizontal" >
-            <Button Grid.Row="14" Content="Добавить" Click="AddProductButton_Click" Margin="10"/>
+            <Button Grid.Row="14" Content="Добавить" Click="AddProductButton_Click" Margin="10">
+                
+            </Button>
         <Button Grid.Row="15" Content="Отмена" Click="CancelButton_Click" Margin="100,10"/>
         </StackPanel>
     </Grid>
