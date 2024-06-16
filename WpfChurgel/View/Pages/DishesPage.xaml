@@ -8,13 +8,26 @@
       d:DesignHeight="390" d:DesignWidth="780"
       Title="DishesPage">
 
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="TotalCostTextStyle">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="724,320,0,0"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="51"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#007ACC"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
-   
+        <!-- ListBox for Dishes -->
         <ListBox x:Name="DishesListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"
                  ItemsSource="{Binding Dishes}" DisplayMemberPath="Name"
                  SelectionChanged="DishesListBox_SelectionChanged"/>
 
-        
+        <!-- DataGrid for Dish Products -->
         <DataGrid x:Name="DishProductsDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,10,0,0"
                   AutoGenerateColumns="False" Height="300" Width="500"
                   ItemsSource="{Binding SelectedDish.Products}">
@@ -22,12 +35,11 @@
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Категория" Binding="{Binding Category.Name}" />
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price}" />
-                
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock x:Name="TotalCostTextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="424,329,0,0"
-           Width="92" Height="51" Text="{Binding TotalPrice, StringFormat='Total Price: {0:F}'}" />
 
-
+        <!-- TextBlock for Total Cost with style -->
+        <TextBlock x:Name="TotalCostTextBlock" Style="{StaticResource TotalCostTextStyle}"
+                   Text="{Binding TotalPrice, StringFormat='Цена: {0:F}'}" />
     </Grid>
 </Page>

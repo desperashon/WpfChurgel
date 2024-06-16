@@ -8,20 +8,54 @@
       d:DesignHeight="390" d:DesignWidth="780"
       Title="MenuPage">
 
+    <Page.Resources>
+        <!-- Style for the StackPanel containing the DatePicker -->
+        <Style TargetType="StackPanel" x:Key="DatePickerStackPanelStyle">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <!-- Style for the TextBlock displaying the menu date -->
+        <Style TargetType="TextBlock" x:Key="MenuDateTextBlockStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Style for the DatePicker -->
+        <Style TargetType="DatePicker" x:Key="MenuDatePickerStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Style for the ListBox displaying menu dishes -->
+        <Style TargetType="ListBox" x:Key="MenuListBoxStyle">
+            <Setter Property="ItemsSource" Value="{Binding MenuDishes}"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Grid.Row" Value="1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+        </Style>
+
+        
+        <Style TargetType="ListBoxItem" x:Key="MenuListBoxItemStyle">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-    
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Дата меню:" Margin="0,0,10,0"/>
-            <DatePicker x:Name="MenuDatePicker" SelectedDateChanged="MenuDatePicker_SelectedDateChanged"  Margin="0,0,10,0"/>
+        <StackPanel Style="{StaticResource DatePickerStackPanelStyle}">
+            <TextBlock Text="Дата меню:" Style="{StaticResource MenuDateTextBlockStyle}"/>
+            <DatePicker x:Name="MenuDatePicker" Style="{StaticResource MenuDatePickerStyle}" SelectedDateChanged="MenuDatePicker_SelectedDateChanged"/>
         </StackPanel>
 
       
-        <ListBox ItemsSource="{Binding MenuDishes}" Margin="10" Grid.Row="1">
+        <ListBox Style="{StaticResource MenuListBoxStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

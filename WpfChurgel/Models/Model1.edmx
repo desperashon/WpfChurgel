@@ -75,6 +75,7 @@
           <Property Name="Protein" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Fat" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Acne" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Photo" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -412,6 +413,7 @@
           <NavigationProperty Name="Category" Relationship="FoodDispatcherDBModel.FK_Products_Category" FromRole="Products" ToRole="Category" />
           <NavigationProperty Name="ProductDishRelation" Relationship="FoodDispatcherDBModel.FK_ProductDishRelation_Products" FromRole="Products" ToRole="ProductDishRelation" />
           <NavigationProperty Name="UnitId1" Relationship="FoodDispatcherDBModel.FK_Products_UnitId" FromRole="Products" ToRole="UnitId" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -613,6 +615,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="FoodDispatcherDBModel.Products">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Acne" ColumnName="Acne" />
                 <ScalarProperty Name="Fat" ColumnName="Fat" />
                 <ScalarProperty Name="Protein" ColumnName="Protein" />

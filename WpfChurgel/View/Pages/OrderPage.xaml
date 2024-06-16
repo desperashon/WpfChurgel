@@ -17,13 +17,14 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
+        <!-- Grid для ComboBox категории и DatePicker меню -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <ComboBox  Name="CategoryCmb" SelectionChanged="CategoryCmb_SelectionChanged"  DisplayMemberPath="Name" Margin="0,10,0,12"/>
+            <ComboBox Name="CategoryCmb" SelectionChanged="CategoryCmb_SelectionChanged" DisplayMemberPath="Name" Margin="0,10,0,12"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="10">
                 <TextBlock Text="Выбрать дату меню:" Margin="0,0,10,0"/>
@@ -31,7 +32,8 @@
             </StackPanel>
         </Grid>
 
-        <ListBox Grid.Row="1" Name="PositionLsb" SelectionChanged="PositionLsb_SelectionChanged"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="10">
+        <!-- ListBox для отображения блюд -->
+        <ListBox Grid.Row="1" Name="PositionLsb" SelectionChanged="PositionLsb_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="10">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="{Binding ElementName=PositionLsb, Path=ActualWidth}"/>
@@ -54,6 +56,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!-- Grid для отображения выбранных блюд и общей стоимости -->
         <Grid Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -86,10 +89,10 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <Border Height="30"
-                           CornerRadius="15"
-                           Background="{TemplateBinding Background}">
+                                            CornerRadius="15"
+                                            Background="{TemplateBinding Background}">
                                         <ContentPresenter VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"/>
+                                                          HorizontalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -102,8 +105,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-                    
-
         </Grid>
     </Grid>
 </Page>
+

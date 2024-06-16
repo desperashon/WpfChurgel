@@ -27,6 +27,7 @@ namespace WpfChurgel.Models
         public Nullable<decimal> Protein { get; set; }
         public Nullable<decimal> Fat { get; set; }
         public Nullable<decimal> Acne { get; set; }
+        public string Photo { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductDishRelation> ProductDishRelation { get; set; }
